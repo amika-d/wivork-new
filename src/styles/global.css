@@ -1,0 +1,124 @@
+@import "tailwindcss";
+
+@theme {
+  /* Midnight ink surfaces */
+  --color-ink-950: #05060c;
+  --color-ink-900: #07080f;
+  --color-ink-800: #0d0f1a;
+  --color-ink-700: #141728;
+  --color-ink-600: #1d2138;
+  --color-ink-500: #2b3050;
+  --color-ink-400: #444b73;
+  --color-ink-300: #7a82a8;
+  --color-ink-200: #a6acc9;
+  --color-ink-100: #cfd3e6;
+
+  --color-paper: #f6f5fb;
+  --color-paper-dim: #d6d3e8;
+
+  /* Gold accent (the brand colour) */
+  --color-gold: #f4a950;
+  --color-gold-light: #f8c88c;
+  --color-gold-dim: #b57a34;
+  /* UV resin glow, used sparingly */
+  --color-uv: #8f7cff;
+
+  /* The three type roles. --fd / --fs / --fb are set live by the font panel. */
+  --font-display: var(--fd, "Bricolage Grotesque"), system-ui, sans-serif;
+  --font-serif: var(--fs, "Instrument Serif"), Georgia, serif;
+  --font-body: var(--fb, "Inter Tight"), system-ui, sans-serif;
+  --font-mark: "Nesatho", sans-serif;
+}
+
+@font-face {
+  font-family: "Nesatho";
+  src: url("/Nesatho.ttf") format("truetype");
+  font-display: swap;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: var(--color-ink-900);
+  color: var(--color-paper);
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.45;
+  overflow-x: hidden;
+}
+
+body.is-loading {
+  overflow: hidden;
+}
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-ink-900);
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 0.98;
+}
+
+.serif-accent {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+/* Hollow outline type for chapter numerals (sits over the photo, so it stays transparent) */
+.outline-text {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(246, 245, 251, 0.5);
+}
+
+/* Hollow outline for text on the flat page background. Variable fonts have
+   overlapping contours that show up as stray inner lines; drawing the stroke
+   under a background-coloured fill hides them and leaves a clean outer edge. */
+.outline-solid {
+  color: var(--color-ink-900);
+  -webkit-text-stroke: 3px var(--color-ink-200);
+  paint-order: stroke fill;
+}
+
+/* Words that scroll-reveal (see src/lib/split.ts) */
+.rw {
+  display: inline-block;
+  will-change: opacity, transform, filter;
+}
+
+.sw-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+
+.sw {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--color-ink-900); }
+::-webkit-scrollbar-thumb { background: var(--color-ink-500); border-radius: 3px; }
+
+/* Reduced motion: no pinning, no scrubbing, everything readable */
+html.reduced [data-world] { height: auto !important; }
+html.reduced [data-world-stage] { position: relative !important; height: 70vh !important; }
+html.reduced [data-world-copy] { position: relative !important; top: 0 !important; }
+html.reduced [data-chapter] { min-height: 0 !important; padding: 4rem 0; }
+html.reduced [data-hscroll] { height: auto !important; overflow-x: auto; }
+html.reduced [data-hscroll-track] { transform: none !important; }
+html.reduced [data-manifesto] { height: auto !important; }
+html.reduced [data-manifesto-stage] { position: relative !important; height: auto !important; padding: 8rem 0; }
+html.reduced .rw { opacity: 1 !important; filter: none !important; transform: none !important; }

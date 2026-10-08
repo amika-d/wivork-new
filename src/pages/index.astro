@@ -1,0 +1,248 @@
+---
+import Layout from "../layouts/Layout.astro";
+import STLViewer from "../components/STLViewer";
+
+const chapters = [
+  {
+    num: "01",
+    title: "Submit your photos",
+    text: "Send us the photos you love. We study every detail so the likeness is right.",
+    side: "left",
+  },
+  {
+    num: "02",
+    title: "We sculpt the model",
+    text: "Our artists build a digital 3D model from your images, feature by feature.",
+    side: "right",
+  },
+  {
+    num: "03",
+    title: "Printed in resin",
+    text: "Professional printers and premium resin turn the model into something you can hold.",
+    side: "left",
+  },
+  {
+    num: "04",
+    title: "Painted by hand",
+    text: "Every colour is applied by hand, then sealed with a protective coat.",
+    side: "right",
+  },
+];
+
+const services = [
+  {
+    title: "Customized Miniatures",
+    text: "Your favorite photos, turned into lifelike miniature figures made just for you.",
+    image: "/services/image-1.png",
+  },
+  {
+    title: "Miniature Painting",
+    text: "Hand-painted detail that gives every collectible a realistic, lasting finish.",
+    image: "/services/image-2.png",
+  },
+  {
+    title: "3D Printing",
+    text: "Professional printing and premium materials, so every piece is durable.",
+    image: "/services/image-3.png",
+  },
+  {
+    title: "3D Modeling",
+    text: "Digital sculpting and careful modeling that prepares your idea for print.",
+    image: "/services/image.png",
+  },
+];
+
+const features = [
+  ["Careful crafting", "Every model is sculpted with attention to the finest details."],
+  ["Quality materials", "Premium resin chosen for durability and a flawless finish."],
+  ["Hand-painted", "Realistic colour work by experienced miniature artists."],
+  ["Dedicated support", "We guide you from photos to finished piece."],
+];
+---
+
+<Layout>
+  <main id="top">
+    <!-- 1 · THE WORLD: hero + four chapters share one fixed stage -->
+    <section id="world" data-world class="relative" style="height:700vh">
+      <div data-world-stage class="sticky top-0 h-screen overflow-hidden bg-ink-950">
+        <canvas
+          data-stage
+          class="absolute inset-0 h-full w-full"
+          role="img"
+          aria-label="A portrait photo turning into a 3D model, then a printed figure, then a hand-painted miniature"
+        ></canvas>
+
+        <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_35%,rgba(5,6,12,0.8)_100%)]"></div>
+        <div data-scrim="left" class="pointer-events-none absolute inset-0 bg-gradient-to-r from-ink-950/95 via-ink-950/45 to-transparent opacity-0 transition-opacity duration-700"></div>
+        <div data-scrim="right" class="pointer-events-none absolute inset-0 bg-gradient-to-l from-ink-950/95 via-ink-950/45 to-transparent opacity-0 transition-opacity duration-700"></div>
+        <div class="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-ink-950/80 to-transparent"></div>
+
+        <!-- Hero, fades as you scroll -->
+        <div data-hero class="absolute inset-0 flex flex-col items-center justify-end pb-[9vh] text-center will-change-transform">
+          <h1 class="font-mark text-[26vw] leading-[0.78] tracking-tighter text-gold md:text-[20vw]" aria-label="Wivork">
+            {"WIVORK".split("").map((l) => (
+              <span data-hero-letter class="inline-block" aria-hidden="true">{l}</span>
+            ))}
+          </h1>
+          <p class="mt-6 text-2xl text-paper md:text-4xl">
+            Your imagination, <span class="serif-accent text-gold">made real.</span>
+          </p>
+          <div class="mt-8 flex items-center gap-3 text-xs tracking-[0.3em] uppercase text-paper/60">
+            <span>Scroll</span>
+            <span class="relative block h-10 w-px overflow-hidden bg-paper/20">
+              <span class="absolute inset-x-0 top-0 h-4 animate-[cue_1.8s_ease-in-out_infinite] bg-gold"></span>
+            </span>
+          </div>
+        </div>
+
+        <!-- Chapter index -->
+        <ol data-ticks class="absolute right-6 top-1/2 hidden -translate-y-1/2 flex-col gap-5 md:flex" aria-hidden="true">
+          {chapters.map((c) => (
+            <li data-tick class="flex items-center justify-end gap-3 text-xs tracking-[0.2em] uppercase text-paper/30 transition-colors duration-500">
+              <span class="opacity-0 transition-opacity duration-500" data-tick-label>{c.title}</span>
+              <span class="block h-px w-6 bg-current"></span>
+              <span>{c.num}</span>
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      <div data-world-copy class="absolute left-0 right-0 top-[100vh]">
+        {chapters.map((c) => (
+          <article data-chapter data-side={c.side} class="flex min-h-[150vh] items-center px-6 md:px-16">
+            <div
+              data-chapter-inner
+              class:list={["relative mx-auto flex w-full max-w-[1400px]", c.side === "right" && "justify-end"]}
+            >
+              <div class="relative max-w-md">
+                <span class="outline-text pointer-events-none absolute -top-24 -left-2 select-none font-display text-[10rem] leading-none md:-top-32 md:text-[14rem]" aria-hidden="true">{c.num}</span>
+                <h2 class="relative text-5xl text-paper md:text-7xl">{c.title}</h2>
+                <p class="relative mt-6 text-lg text-paper/75 md:text-xl">{c.text}</p>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <!-- 2 · MANIFESTO: scroll paces the reading -->
+    <section data-manifesto class="relative bg-ink-900" style="height:280vh">
+      <div data-manifesto-stage class="sticky top-0 flex h-screen items-center px-6 md:px-16">
+        <p data-reveal-words class="mx-auto max-w-[1300px] font-display text-[9vw] leading-[1.02] tracking-tight text-paper md:text-[5.4vw]">
+          Every photo holds a moment worth keeping. We sculpt it, print it and paint it by hand, so you can <em class="serif-accent text-gold">hold it.</em>
+        </p>
+      </div>
+    </section>
+
+    <!-- 3 · SERVICES: the page turns sideways -->
+    <section id="services" data-hscroll class="relative h-screen overflow-hidden bg-ink-900">
+      <div data-hscroll-track class="flex h-full w-max items-center gap-6 pl-6 pr-[12vw] md:gap-10 md:pl-16">
+        <div class="w-[82vw] shrink-0 md:w-[34vw]">
+          <span class="text-sm font-semibold tracking-[0.25em] uppercase text-ink-200">What we do</span>
+          <h2 class="mt-5 text-5xl text-paper md:text-7xl">
+            Everything to bring your ideas <span class="serif-accent text-gold">to life</span>
+          </h2>
+          <p class="mt-6 flex items-center gap-3 text-sm text-ink-200">Keep scrolling <span aria-hidden="true">→</span></p>
+        </div>
+        {services.map((s, i) => (
+          <article data-hcard class="relative h-[64vh] w-[78vw] shrink-0 overflow-hidden rounded-[28px] border border-ink-600/60 bg-ink-800 md:h-[68vh] md:w-[34vw]">
+            <img data-hcard-img src={s.image} alt={s.title} loading="lazy" class="absolute left-[-15%] top-0 h-full w-[130%] max-w-none object-cover" style="filter:saturate(.9) brightness(.85)" />
+            <div class="absolute inset-0 bg-gradient-to-t from-ink-950/95 via-ink-950/30 to-transparent"></div>
+            <div class="absolute inset-x-0 bottom-0 p-7 md:p-9">
+              <span class="font-display text-gold">0{i + 1}</span>
+              <h3 class="mt-2 text-3xl text-paper md:text-4xl">{s.title}</h3>
+              <p class="mt-3 max-w-sm text-base text-paper/70">{s.text}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+      <div class="pointer-events-none absolute inset-x-6 bottom-8 h-px bg-ink-600 md:inset-x-16">
+        <div data-hscroll-bar class="h-px origin-left bg-gold" style="transform:scaleX(0)"></div>
+      </div>
+    </section>
+
+    <!-- 4 · STUDIO: marquees run against each other, 3D model sits between -->
+    <section id="studio" class="relative overflow-hidden bg-ink-900 py-28 md:py-40">
+      <div data-marquees class="pointer-events-none select-none">
+        <div data-marquee="-1" class="outline-solid flex w-max gap-10 whitespace-nowrap font-display text-[16vw] leading-none">
+          {Array.from({ length: 4 }).map(() => <span>We Made Real</span><img src="/OYFAVICON.png" alt="" class="h-[0.42em] w-auto shrink-0 self-center" />)}
+        </div>
+        <div data-marquee="1" class="mt-2 flex w-max gap-10 whitespace-nowrap font-display text-[16vw] leading-none text-gold/90" style="margin-left:-40vw">
+          {Array.from({ length: 4 }).map(() => <span>Hand-painted</span><img src="/OYFAVICON.png" alt="" class="h-[0.42em] w-auto shrink-0 self-center" />)}
+        </div>
+      </div>
+
+      <div class="mx-auto mt-24 grid max-w-[1300px] gap-12 px-6 md:px-16 lg:grid-cols-5">
+        <div class="flex flex-col justify-center lg:col-span-2">
+          <span class="text-sm font-semibold tracking-[0.25em] uppercase text-ink-200">The studio</span>
+          <h2 data-mask class="mt-5 text-5xl text-paper md:text-6xl">The Wivork experience</h2>
+          <p class="mt-6 text-lg text-paper/75">
+            A creative studio built on craft. We blend modern 3D technology with traditional artistry to turn your photographs into figures you can touch and display.
+          </p>
+          <p class="serif-accent mt-8 border-l-2 border-gold/50 pl-5 text-3xl text-gold">“We Made Real”</p>
+        </div>
+        <div class="relative min-h-[420px] overflow-hidden rounded-[28px] border border-ink-600/60 bg-ink-800/60 lg:col-span-3">
+          <div class="absolute inset-0"><STLViewer client:visible url="/models/display-model.stl" /></div>
+          <div class="pointer-events-none absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full border border-ink-600/60 bg-ink-900/70 px-3 py-1.5 text-sm text-ink-200 backdrop-blur-sm">
+            Drag to rotate
+          </div>
+        </div>
+      </div>
+
+      <div class="mx-auto mt-24 grid max-w-[1300px] gap-8 px-6 md:grid-cols-2 md:px-16 lg:grid-cols-4">
+        {features.map(([t, d]) => (
+          <div data-feature class="border-t border-ink-600/70 pt-6">
+            <h3 class="text-xl text-paper">{t}</h3>
+            <p class="mt-3 text-base text-ink-200">{d}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- 5 · CTA -->
+    <section class="bg-ink-900 px-4 pb-4 md:px-8">
+      <div data-cta class="relative flex h-[75vh] w-full items-center justify-center overflow-hidden rounded-[28px]">
+        <img data-parallax src="/services/image-2.png" alt="" loading="lazy" class="absolute inset-x-0 -top-[15%] h-[130%] w-full object-cover" style="filter:saturate(.85) brightness(.7)" />
+        <div class="absolute inset-0 bg-gradient-to-t from-ink-950/80 via-ink-950/30 to-ink-950/50"></div>
+        <div class="relative z-10 flex flex-col items-center px-6 text-center">
+          <span class="text-sm font-semibold tracking-[0.25em] uppercase text-paper/80">Start your commission</span>
+          <h2 data-mask class="mt-6 max-w-4xl text-5xl text-paper md:text-8xl">Ready to bring your vision to life?</h2>
+          <a
+            href="https://wa.me/94722227440"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mt-10 rounded-full bg-gold px-8 py-4 text-base font-semibold text-ink-900 transition hover:-translate-y-0.5 hover:bg-gold-light"
+          >
+            Request a quote on WhatsApp
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact" class="relative overflow-hidden bg-ink-900 px-6 pt-20 pb-6 md:px-16">
+    <div class="mx-auto flex max-w-[1300px] flex-col gap-12 md:flex-row md:justify-between">
+      <div class="max-w-sm">
+        <h3 class="text-4xl text-paper md:text-5xl">Let's work together.</h3>
+        <p class="mt-4 text-ink-200">Every custom piece starts with a conversation. Reach out through any channel.</p>
+      </div>
+      <ul class="space-y-3 text-lg text-paper/80">
+        <li><a class="transition-colors hover:text-gold" href="tel:+94722227440">072 222 7440</a></li>
+        <li><a class="transition-colors hover:text-gold" href="mailto:wivork@gmail.com">wivork@gmail.com</a></li>
+        <li><a class="transition-colors hover:text-gold" href="https://maps.google.com/?q=Colombo+Sri+Lanka" target="_blank" rel="noopener noreferrer">125/16/A, Colombo</a></li>
+        <li class="flex items-center gap-2 pt-2 text-sm text-ink-200"><span class="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400"></span>Operating 24 hours</li>
+      </ul>
+    </div>
+    <div data-footer-mark class="mt-16 select-none text-center font-mark text-[26vw] leading-[0.8] tracking-tighter text-paper/10 md:text-[22vw]">
+      WIVORK
+    </div>
+    <p class="mt-4 text-center text-sm text-ink-300">© {new Date().getFullYear()} Wivork. Bespoke 3D sculpture and portraiture studio.</p>
+  </footer>
+</Layout>
+
+<style is:global>
+  @keyframes cue {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(260%); }
+  }
+</style>

@@ -1,0 +1,37 @@
+---
+const nav = [
+  { label: "Process", href: "#world" },
+  { label: "Services", href: "#services" },
+  { label: "Studio", href: "#studio" },
+  { label: "Contact", href: "#contact" },
+];
+---
+
+<div class="fixed top-0 left-0 z-[60] h-[3px] w-full">
+  <div data-progress class="h-full origin-left bg-gold" style="transform:scaleX(0)"></div>
+</div>
+
+<header
+  data-header
+  class="fixed top-5 left-1/2 z-50 w-[92%] max-w-5xl -translate-x-1/2 rounded-full border border-transparent transition-all duration-500"
+>
+  <div class="flex items-center justify-between py-3 pl-6 pr-3">
+    <a href="#top" data-scroll-to class="flex items-center" aria-label="Wivork, back to top">
+      <img src="/OYFAVICON.png" alt="" class="h-5 w-auto" />
+    </a>
+    <nav class="hidden items-center gap-10 md:flex">
+      {nav.map((n) => (
+        <a href={n.href} data-scroll-to class="text-base font-medium text-paper/70 transition-colors hover:text-paper">
+          {n.label}
+        </a>
+      ))}
+    </nav>
+    <a
+      href="#contact"
+      data-scroll-to
+      class="rounded-full bg-gold px-5 py-2.5 text-base font-semibold text-ink-900 transition-colors hover:bg-gold-light"
+    >
+      Get in touch
+    </a>
+  </div>
+</header>
